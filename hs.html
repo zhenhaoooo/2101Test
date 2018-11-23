@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+		<title>VEVR - HighScore</title>
+        <style>
+		body{
+			margin:0;
+			background-color:#369;
+			overflow:auto;
+			 max-width: 500px;
+			margin: auto;
+				
+			padding: 10px;
+		}	
+            table {
+              border: 1px solid #1C6EA4;
+			  background-color: #EEEEEE;
+			  width: 100%;
+			  text-align: left;
+			  border-collapse: collapse;
+			  font-size: 18px;
+            }
+
+            td {
+                   border-right: 1px solid #fff;
+					border-left: 1px solid #e8e8e8;
+					border-top: 1px solid #fff;
+					border-bottom: 1px solid #e8e8e8;
+					padding: 10px 15px;
+					position: relative;
+					transition: all 300ms;
+            }
+			td:first-child {
+				box-shadow: inset 1px 0 0 #fff;
+			}  
+			td:last-child {
+				border-right: 1px solid #e8e8e8;
+				box-shadow: inset -1px 0 0 #fff;
+			}  
+			tr {
+				background: url(https://jackrugile.com/images/misc/noise-diagonal.png); 
+			}
+			tr:nth-child(odd) td {
+				background: #f1f1f1 url(https://jackrugile.com/images/misc/noise-diagonal.png); 
+			}
+
+			tr:last-of-type td {
+				box-shadow: inset 0 -1px 0 #fff; 
+			}
+
+			tr:last-of-type td:first-child {
+				box-shadow: inset 1px -1px 0 #fff;
+			}   
+
+			tr:last-of-type td:last-child {
+				box-shadow: inset -1px -1px 0 #fff;
+			} 
+			h2 {
+			color: white;
+			text-align: center;
+			}
+			p {
+			color :white;
+			text-align: center;
+			}
+			body:hover td {
+				color: transparent;
+				text-shadow: 0 0 3px #aaa;
+			}
+
+			body:hover tr:hover td {
+				color: #444;
+				text-shadow: 0 1px 0 #fff;
+			}
+        </style>
+    </head>
+    <body>
+		<h2>HighScore</h2>
+		<p>Welcome Player</p>
+        <!-- <script src="http://d3js.org/d3.v3.min.js"></script> -->
+        <script src="d3.min.js?v=3.2.8"></script>
+
+        <script type="text/javascript"charset="utf-8">
+            d3.text("data.csv", function(data) {
+                var parsedCSV = d3.csv.parseRows(data);
+
+                var container = d3.select("body")
+                    .append("table")
+					.append("thead")
+                    .selectAll("tr")
+                        .data(parsedCSV).enter()
+                        .append("tr")
+
+                    .selectAll("td")
+                        .data(function(d) { return d; }).enter()
+                        .append("td")
+                        .text(function(d) { return d; });
+            });
+        </script>
+    </body>
+</html>
